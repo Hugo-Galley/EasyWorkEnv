@@ -12,6 +12,9 @@ license = {text = "GPL-3.0-or-later"}
 authors = [
     {name = "Galley Hugo", email = "galleyhugo@icloud.com"}
 ]
+dependencies = [
+    "PyYAML>=6.0.2"
+]
 
 [project.urls]
 HomePage = "https://github.com/Hugo-Galley/EasyWorkEnv"

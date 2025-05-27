@@ -1,6 +1,6 @@
 import json
 import re
-
+import yaml
 class DynamyqueObject:
     def __init__(self):
         pass
@@ -12,9 +12,11 @@ class Config:
 
         match self.__extensions :
             case "json":
-                self.__data = self.__getEnvDataFromJson()
+                self.__data = self.__getEnvData()
             case "env" :
                 self.__data = self.__getEnvFromDotEnv()
+            case "yaml":
+                self.__data = self.__getEnvData()
             case _ :
                 self.__data = {}
         self.__setAttribute(self, self.__data)
@@ -28,9 +30,14 @@ class Config:
             else:
                 setattr(obj, key, value)
 
-    def __getEnvDataFromJson(self):
-        with open(self.__fileName, 'r') as f:
-            return json.loads(f.read())
+    def __getEnvData(self):
+            with open(self.__fileName, 'r') as f:
+                if self.__extensions == "json":
+                    return json.loads(f.read())
+                elif self.__extensions == "yaml":
+                    return yaml.safe_load(f)
+
+
 
     def __findGoodExtensions(self):
         extensions = re.findall(r"\.[a-zA-Z]+$", self.__fileName)[0].split(".")[1]
