@@ -1,4 +1,4 @@
-# WorkEnv
+# EasyWorkEnv
 
 This is a Python package that simplifies the management of environment variables.
 
@@ -10,7 +10,7 @@ This is a Python package that simplifies the management of environment variables
 ## Example usage
 
 ```python
-from WorkEnv import Config
+from EasyWorkEnv import Config
 
 config = Config(".env")
 

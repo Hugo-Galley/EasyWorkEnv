@@ -1,4 +1,4 @@
-# WorkEnv/__init__.py
+# EasyWorkEnv/__init__.py
 from .config import Config
 
 __all__ = ["Config"]

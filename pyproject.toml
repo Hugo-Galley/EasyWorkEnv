@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "WorkEnv"
+name = "EasyWorkEnv"
 version = "0.1.0"
 description = "This is a package that simplifies environment variable management."
 readme = "README.md"
@@ -14,4 +14,4 @@ authors = [
 ]
 
 [project.urls]
-HomePage = "https://github.com/Hugo-Galley/WorkEnv"
+HomePage = "https://github.com/Hugo-Galley/EasyWorkEnv"
