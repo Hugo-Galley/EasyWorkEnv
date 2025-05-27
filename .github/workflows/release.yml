@@ -3,26 +3,27 @@ name: Release Python package
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*.*.*'  # Exemple : v0.1.1
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
-    - name: Install build and twine
+    - name: Install build & twine
       run: |
         python -m pip install --upgrade pip
         pip install build twine
 
-    - name: Build package
+    - name: Build the package
       run: python -m build
 
     - name: Publish to PyPI
@@ -34,6 +35,6 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref_name }}
+        files: dist/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
