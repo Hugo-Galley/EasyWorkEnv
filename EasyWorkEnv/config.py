@@ -3,37 +3,37 @@ import re
 
 class DynamyqueObject:
     def __init__(self):
-        self.__annotations__ = {}
+        pass
 class Config:
 
     def __init__(self,fileName):
-        self.fileName = fileName
-        self.extensions = self.findGoodExtensions()
+        self.__fileName = fileName
+        self.__extensions = self.__findGoodExtensions()
 
-        match self.extensions :
+        match self.__extensions :
             case "json":
-                self.data = self.getEnvDataFromJson()
+                self.__data = self.__getEnvDataFromJson()
             case "env" :
-                self.data = self.getEnvFromDotEnv()
+                self.__data = self.__getEnvFromDotEnv()
             case _ :
-                self.data = {}
-        self.setAttribute(self, self.data)
+                self.__data = {}
+        self.__setAttribute(self, self.__data)
 
-    def setAttribute(self,obj, data):
+    def __setAttribute(self,obj, data):
         for key, value in data.items():
             if isinstance(value, dict):
                 sub_object = DynamyqueObject()
                 setattr(obj, key, sub_object)
-                self.setAttribute(sub_object, value)
+                self.__setAttribute(sub_object, value)
             else:
                 setattr(obj, key, value)
 
-    def getEnvDataFromJson(self):
-        with open(self.fileName, 'r') as f:
+    def __getEnvDataFromJson(self):
+        with open(self.__fileName, 'r') as f:
             return json.loads(f.read())
 
-    def findGoodExtensions(self):
-        extensions = re.findall(r"\.[a-zA-Z]+$", self.fileName)[0].split(".")[1]
+    def __findGoodExtensions(self):
+        extensions = re.findall(r"\.[a-zA-Z]+$", self.__fileName)[0].split(".")[1]
         match extensions:
             case "env":
                 return "env"
@@ -44,9 +44,9 @@ class Config:
             case _:
                 return False
 
-    def getEnvFromDotEnv(self):
+    def __getEnvFromDotEnv(self):
         dico = {}
-        with open(self.fileName, "r") as f:
+        with open(self.__fileName, "r") as f:
             data = f.readlines()
             cleanData = [line.replace("\n", "") for line in data]
             for line in cleanData:
