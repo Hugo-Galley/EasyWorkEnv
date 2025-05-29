@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "EasyWorkEnv"
-version = "0.3.1"
+version = "0.3.2"
 description = "This is a package that simplifies environment variable management."
 readme = "README.md"
 requires-python = ">=3.8"
