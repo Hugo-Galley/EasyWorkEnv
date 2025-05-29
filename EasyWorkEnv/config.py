@@ -2,13 +2,16 @@ import json
 import re
 import yaml
 import os
+import inspect
 class DynamyqueObject:
     def __init__(self):
         pass
 class Config:
 
     def __init__(self,fileName):
-        self.__base_dir = os.path.dirname(os.path.abspath(__file__))
+        callerFrame = inspect.stack()[1]
+        callerFile = callerFrame.filename
+        self.__base_dir = os.path.dirname(os.path.abspath(callerFile))
         self.__fileName = fileName
         self.__filePath = os.path.join(self.__base_dir,self.__fileName)
         self.__extensions = self.__findGoodExtensions()
