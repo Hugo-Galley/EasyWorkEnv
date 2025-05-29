@@ -1,13 +1,16 @@
 import json
 import re
 import yaml
+import os
 class DynamyqueObject:
     def __init__(self):
         pass
 class Config:
 
     def __init__(self,fileName):
+        self.__base_dir = os.path.dirname(os.path.abspath(__file__))
         self.__fileName = fileName
+        self.__filePath = os.path.join(self.__base_dir,self.__fileName)
         self.__extensions = self.__findGoodExtensions()
 
         match self.__extensions :
@@ -31,11 +34,11 @@ class Config:
                 setattr(obj, key, value)
 
     def __getEnvData(self):
-            with open(self.__fileName, 'r') as f:
-                if self.__extensions == "json":
-                    return json.loads(f.read())
-                elif self.__extensions == "yaml":
-                    return yaml.safe_load(f)
+        with open(self.__filePath, 'r') as f:
+            if self.__extensions == "json":
+                return json.loads(f.read())
+            elif self.__extensions == "yaml":
+                return yaml.safe_load(f)
 
 
 
@@ -53,7 +56,7 @@ class Config:
 
     def __getEnvFromDotEnv(self):
         dico = {}
-        with open(self.__fileName, "r") as f:
+        with open(self.__filePath, "r") as f:
             data = f.readlines()
             cleanData = [line.replace("\n", "") for line in data]
             for line in cleanData:
