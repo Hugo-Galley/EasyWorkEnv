@@ -8,36 +8,36 @@ class DynamyqueObject:
         pass
 class Config:
 
-    def __init__(self,fileName):
-        callerFrame = inspect.stack()[1]
-        callerFile = callerFrame.filename
-        self.__base_dir = os.path.dirname(os.path.abspath(callerFile))
-        self.__fileName = fileName
-        self.__filePath = os.path.join(self.__base_dir,self.__fileName)
-        self.__extensions = self.__findGoodExtensions()
+    def __init__(self,file_name):
+        caller_frame = inspect.stack()[1]
+        caller_file = caller_frame.filename
+        self.__base_dir = os.path.dirname(os.path.abspath(caller_file))
+        self.__file_name = file_name
+        self.__file_path = os.path.join(self.__base_dir,self.__file_name)
+        self.__extensions = self.__find_good_extensions()
 
         match self.__extensions :
             case "json":
-                self.__data = self.__getEnvData()
+                self.__data = self.__get_env_data()
             case "env" :
-                self.__data = self.__getEnvFromDotEnv()
+                self.__data = self.__get_env_from_dot_env()
             case "yaml":
-                self.__data = self.__getEnvData()
+                self.__data = self.__get_env_data()
             case _ :
                 self.__data = {}
-        self.__setAttribute(self, self.__data)
+        self.__set_attribute(self, self.__data)
 
-    def __setAttribute(self,obj, data):
+    def __set_attribute(self,obj, data):
         for key, value in data.items():
             if isinstance(value, dict):
                 sub_object = DynamyqueObject()
                 setattr(obj, key, sub_object)
-                self.__setAttribute(sub_object, value)
+                self.__set_attribute(sub_object, value)
             else:
                 setattr(obj, key, value)
 
-    def __getEnvData(self):
-        with open(self.__filePath, 'r') as f:
+    def __get_env_data(self):
+        with open(self.__file_path, 'r') as f:
             if self.__extensions == "json":
                 return json.loads(f.read())
             elif self.__extensions == "yaml":
@@ -45,8 +45,8 @@ class Config:
 
 
 
-    def __findGoodExtensions(self):
-        extensions = re.findall(r"\.[a-zA-Z]+$", self.__fileName)[0].split(".")[1]
+    def __find_good_extensions(self):
+        extensions = re.findall(r"\.[a-zA-Z]+$", self.__file_name)[0].split(".")[1]
         match extensions:
             case "env":
                 return "env"
@@ -57,9 +57,9 @@ class Config:
             case _:
                 return False
 
-    def __getEnvFromDotEnv(self):
+    def __get_env_from_dot_env(self):
         dico = {}
-        with open(self.__filePath, "r") as f:
+        with open(self.__file_path, "r") as f:
             data = f.readlines()
             cleanData = [line.replace("\n", "") for line in data]
             for line in cleanData:

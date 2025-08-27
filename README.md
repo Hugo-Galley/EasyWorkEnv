@@ -4,7 +4,7 @@ This is a Python package that simplifies the management of environment variables
 
 ## Compatibility
 ### Supported environment file formats
-- `json`
+- `.json`
 - `.env`
 - `.yaml`
 
@@ -19,11 +19,11 @@ config = Config(".env")
 
 # Variables retrieved from the environment
 
-myEnv = config.ENV
-myAPiKey = config.APIKEY
+my_env = config.ENV
+my_api_key = config.API_KEY
 
 # Nested information
 
-myBddHost = config.BDD.Host
-myBddDatabaseName = config.BDD.DATABASENAME
+my_bdd_host = config.BDD.Host
+my_bdd_database_name = config.BDD.DATABASE_NAME
 ```
