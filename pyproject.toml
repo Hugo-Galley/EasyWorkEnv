@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "EasyWorkEnv"
-version = "0.3.3"
+name = "easyworkenv"
+version = "0.3.4"
 description = "This is a package that simplifies environment variable management."
 readme = "README.md"
 requires-python = ">=3.8"
